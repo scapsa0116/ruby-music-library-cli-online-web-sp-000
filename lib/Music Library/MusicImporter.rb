@@ -1,19 +1,19 @@
-class MusicImporter
-  attr_accessor :path 
-def  initialize(path)
-  @path = path 
-end 
+# class MusicImporter
+#   attr_accessor :path 
+# def  initialize(path)
+#   @path = path 
+# end 
 
-def files
-    files = []
-    Dir.glob("#{path}/*.mp3").collect do |file|
-      files << file.gsub("#{path}/", "")
-    end
-    files
-  end
+# def files
+#     files = []
+#     Dir.glob("#{path}/*.mp3").collect do |file|
+#       files << file.gsub("#{path}/", "")
+#     end
+#     files
+#   end
 
 
-def import
-    files.each{|file| Song.new_by_}
-  end
-end 
+# def import
+#     files.each{|file| Song.new_by_}
+#   end
+# end 
