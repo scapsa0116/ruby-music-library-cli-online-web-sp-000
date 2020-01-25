@@ -1,13 +1,13 @@
 class Song 
-  
- attr_accessor :name,   
-  attr_reader:artist, :genre 
+  extend Concerns::Findable
+ attr_accessor :song, :name, :artist, :genre   
+  # attr_reader :artist, :genre 
   @@all = []
   
-  def initialize(name,artist,genre) 
+  def initialize(name,artist =nil,genre = nil) 
     @name = name 
-    @artist = artist 
-    @genre = genre 
+    self.artist = artist if artist
+    self.genre = genre if genre  
     save 
   end 
   
@@ -18,29 +18,46 @@ class Song
   def save 
     @@all << self 
   end 
+
+def self.create(name)
+  song = Song.new(name)
+  self.all << song 
+  song 
+end 
+  
+  def artist= (artist)
+    @artist = artist 
+    artist.add_song(self)
+  end
+  
+  def genre= (genre)
+    @genre = genre 
+    genre.add_song(self)
+  end 
   
   
-   def destry_all
+  def self.destroy_all
     @@all.clear
   end 
   
-  def find_by_name(name)
-  @@all.detect {|song| song.name == name} 
-end 
+# def find_or_create_by_name(name)
+#   if self.find_by_name(name) == nil 
+#   self.create(name)
+# else 
+#   self.find_by_name(name)
+#   end 
+# end 
 
-def find_or_create_by_name(name)
-  self.find_by_name(name) || self.create(name)
+def self.new_from_filename(file_name)
+  array = file_name.split("-")
+  artist_name = array[0]
+  artist = Artist.find_or_create_by_name(artist_name)
+  title = array[1]
+  genre_name = (array[2].chomp(".mp3"))
+  genre = Genre.finf_or_create_by_name(genre_name)
+  new_song = Song.new(title, artist, genre)
 end 
-
-def self.new_from_filename(filename)
-    split_file = filename.gsub(".mp3", "").split(" - ")
-    artist = Artist.find_or_create_by_name(split_file[0])
-    genre = Genre.find_or_create_by_name(split_file[2])
-    self.new(split_file[1], artist, genre)
-  end
   
-  def self.create_from_filename(filename)
-    song = self.new_from_filename(filename)
-    song.save
-  end
+  
+  
 end 

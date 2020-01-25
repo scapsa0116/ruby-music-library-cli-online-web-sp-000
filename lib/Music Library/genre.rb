@@ -19,13 +19,23 @@ class Genre
     @@all << self 
   end 
   
-  def destry_all
+   def self.create(name)
+  genre =Genre.new(name)
+  self.all << genre 
+  genre
+end 
+  
+  def self.destroy_all
     @@all.clear
   end 
   
  
  
  def artists
-    songs.collect{|song| song.artist}.uniq
+    self.songs.collect{|song| song.artist}.uniq
   end
+  
+  def to_s 
+    self.name 
+  end 
 end 

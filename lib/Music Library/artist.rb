@@ -3,8 +3,14 @@ class Artist
   attr_accessor :name, :songs, :genre
   @@all = []
   
-  def initialize 
+  def initialize(name) 
+    songs = []
+    @name = name 
     save 
+  end 
+  
+  def self.songs 
+    @songs 
   end 
   
   def self.all 
@@ -15,7 +21,13 @@ class Artist
     @@all << self 
   end 
   
-   def destry_all
+  def self.create(name)
+  artist = Artist.new(name)
+  self.all << artist 
+  artist 
+end 
+  
+   def self.destroy_all
     @@all.clear
   end 
   
