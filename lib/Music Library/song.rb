@@ -1,63 +1,63 @@
-class Song 
-  extend Concerns::Findable
- attr_accessor :song, :name, :artist, :genre   
-  # attr_reader :artist, :genre 
-  @@all = []
+# class Song 
+#   extend Concerns::Findable
+# attr_accessor :song, :name, :artist, :genre   
+#   # attr_reader :artist, :genre 
+#   @@all = []
   
-  def initialize(name,artist =nil,genre = nil) 
-    @name = name 
-    self.artist = artist if artist
-    self.genre = genre if genre  
-    save 
-  end 
-  
-  def self.all 
-    @@all 
-  end 
-  
-  def save 
-    @@all << self 
-  end 
-
-def self.create(name)
-  song = Song.new(name)
-  self.all << song 
-  song 
-end 
-  
-  def artist= (artist)
-    @artist = artist 
-    artist.add_song(self)
-  end
-  
-  def genre= (genre)
-    @genre = genre 
-    genre.add_song(self)
-  end 
-  
-  
-  def self.destroy_all
-    @@all.clear
-  end 
-  
-# def find_or_create_by_name(name)
-#   if self.find_by_name(name) == nil 
-#   self.create(name)
-# else 
-#   self.find_by_name(name)
+#   def initialize(name,artist =nil,genre = nil) 
+#     @name = name 
+#     self.artist = artist if artist
+#     self.genre = genre if genre  
+#     save 
 #   end 
-# end 
+  
+#   def self.all 
+#     @@all 
+#   end 
+  
+#   def save 
+#     @@all << self 
+#   end 
 
-def self.new_from_filename(file_name)
-  array = file_name.split("-")
-  artist_name = array[0]
-  artist = Artist.find_or_create_by_name(artist_name)
-  title = array[1]
-  genre_name = (array[2].chomp(".mp3"))
-  genre = Genre.finf_or_create_by_name(genre_name)
-  new_song = Song.new(title, artist, genre)
-end 
+# def self.create(name)
+#   song = Song.new(name)
+#   self.all << song 
+#   song 
+# end 
+  
+#   def artist= (artist)
+#     @artist = artist 
+#     artist.add_song(self)
+#   end
+  
+#   def genre= (genre)
+#     @genre = genre 
+#     genre.add_song(self)
+#   end 
+  
+  
+#   def self.destroy_all
+#     @@all.clear
+#   end 
+  
+# # def find_or_create_by_name(name)
+# #   if self.find_by_name(name) == nil 
+# #   self.create(name)
+# # else 
+# #   self.find_by_name(name)
+# #   end 
+# # end 
+
+# def self.new_from_filename(file_name)
+#   array = file_name.split("-")
+#   artist_name = array[0]
+#   artist = Artist.find_or_create_by_name(artist_name)
+#   title = array[1]
+#   genre_name = (array[2].chomp(".mp3"))
+#   genre = Genre.finf_or_create_by_name(genre_name)
+#   new_song = Song.new(title, artist, genre)
+# end 
   
   
   
-end 
+# end 
